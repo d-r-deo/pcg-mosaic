@@ -1,0 +1,25 @@
+# macOS
+.DS_Store
+
+# Python (if applicable)
+__pycache__/
+*.pyc
+
+# Jupyter (if applicable)
+.ipynb_checkpoints/
+
+# Data (important for your case)
+*.mat
+*.npy
+*.npz
+*.h5
+*.csv
+
+# Videos (for your project)
+*.mp4
+*.mov
+
+# Figures / exports
+*.png
+*.tif
+*.jpg

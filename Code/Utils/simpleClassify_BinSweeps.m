@@ -1,0 +1,66 @@
+function [ C, L, obj, bino_CI ] = simpleClassify_BinSweeps( features, trlCodes, eventIdx, conLabels, binWidth, nDecodeBins, startIdx, plotFig, sortIdx )
+
+    if nargin<8
+        plotFig = true;
+    end
+    
+    dataIdxStart = startIdx+(1:(binWidth));
+    allFeatures = [];
+    newTrlCodes = [];
+    for t=1:length(trlCodes)
+        tmp = [];
+        tmpTrlCodes = [];
+        dataIdx = dataIdxStart;
+        for binIdx=1:nDecodeBins
+            loopIdx = dataIdx + eventIdx(t);
+            meanFeats = mean(features(loopIdx,:),1);
+            if any(isnan(meanFeats))
+                continue;
+            end
+
+            tmp = [tmp, mean(features(loopIdx,:),1)];
+            tmpTrlCodes = [tmpTrlCodes trlCodes(t)];
+
+            if binIdx<nDecodeBins
+                dataIdx = dataIdx + binWidth;
+            end
+        end
+        newTrlCodes = [newTrlCodes; tmpTrlCodes];
+        allFeatures = [allFeatures; tmp];
+    end
+
+    trlCodes = newTrlCodes;
+
+    codeList = unique(trlCodes);
+    if nargin<9
+        sortIdx = 1:length(codeList);
+    end
+    
+    obj = fitcdiscr(allFeatures,trlCodes,'DiscrimType','diaglinear','Prior',ones(length(codeList),1));
+    cvmodel = crossval(obj);
+    L = kfoldLoss(cvmodel);
+    predLabels = kfoldPredict(cvmodel);
+
+    C = confusionmat(trlCodes, predLabels);
+    for rowIdx=1:size(C,1)
+        C(rowIdx,:) = C(rowIdx,:)/sum(C(rowIdx,:));
+    end
+    
+    [~,bino_CI]=binofit(sum(predLabels==trlCodes),length(trlCodes));
+    C = C(sortIdx, sortIdx);
+    
+    if plotFig
+        figure('Position',[212   524   808   567]);
+        hold on;
+
+        imagesc(C);
+        set(gca,'XTick',1:length(conLabels(sortIdx)),'XTickLabel',conLabels(sortIdx),'XTickLabelRotation',45);
+        set(gca,'YTick',1:length(conLabels(sortIdx)),'YTickLabel',conLabels(sortIdx));
+        set(gca,'FontSize',12);
+        set(gca,'LineWidth',2);
+        colorbar;
+        title(['Cross-Validated Decoding Accuracy: ' num2str(100*(1-L),3) '%']);
+        axis tight;
+    end
+end
+

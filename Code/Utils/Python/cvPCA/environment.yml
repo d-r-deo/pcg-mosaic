@@ -1,0 +1,14 @@
+name: cvpca-analysis
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9.23
+  - numpy=2.0.2
+  - scipy=1.13.1
+  - scikit-learn=1.6.1
+  - matplotlib=3.9.4
+  - jupyter=1.1.1
+  - pip
+  - pip:
+    - mat73==0.65
