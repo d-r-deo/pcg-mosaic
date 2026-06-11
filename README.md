@@ -1,25 +1,25 @@
 # pcg-mosaic
 
-Code from the paper [*A mosaic of whole-body representations on the human precentral gyrus.*](https://doi.org/10.1101/2024.09.14.613041) 
+Code from the paper [*A mosaic of whole-body representations on the human precentral gyrus.*](https://www.nature.com/articles/s41586-026-10653-x) 
 
 <img width="6379" height="3965" alt="Mosaic_thumbnail" src="https://github.com/user-attachments/assets/4d0b0e9b-8d97-4e7c-bfb0-aa20dfcfb109" />
 
 ## Overview
 
-This repository accompanies the [preprint](https://doi.org/10.1101/2024.09.14.613041) and the associated [dataset](https://datadryad.org). The code reproduces all main figures and selected extended data figures reported in the paper.
+This repository accompanies the [paper](https://www.nature.com/articles/s41586-026-10653-x), [preprint](https://doi.org/10.1101/2024.09.14.613041) and the associated [dataset](https://doi.org/10.5061/dryad.mpg4f4rg5). The code reproduces all main figures and selected extended data figures reported in the paper.
 
 The repository is a mix of MATLAB and Python:
 
 - **Top-level MATLAB scripts** — `mainFigs.m` and `extendedDataFigs.m` — drive the analyses end-to-end.
 - **`Code/`** — contains the installation guide (`INSTALLATION_GUIDE.md`) and a `Utils/` folder of helper functions (tuning analyses, classifiers, plotting utilities, colormaps, etc.).
 - **`Code/Utils/Python/`** — contains Jupyter notebooks and yaml files for the cross-validated PCA analysis and RNN decoder used in Extended Data Figure 3 and Figure 3, respectively.
-- **`Data/`** — destination for the eight participant `.mat` files and the `T12_control.mat` control dataset (downloaded separately from the [data repository](https://datadryad.org), see below). Generated figures and intermediate results are written into `Data/MainFigs/` and `Data/ExtDataFigs/`.
+- **`Data/`** — destination for the eight participant `.mat` files and the `T12_control.mat` control dataset (downloaded separately from [Data Dryad](https://doi.org/10.5061/dryad.mpg4f4rg5) and [DABI](https://dabi.loni.usc.edu/projects/K1KK0H4SRS11), see below). Generated figures and intermediate results are written into `Data/MainFigs/` and `Data/ExtDataFigs/`.
 
 A full description of the data structure (fields, dimensions, movement-condition numbering, etc.) is provided in `Data/README.md`. Each participant file contains both multi-unit threshold-crossing data and sorted-unit data within a single data structure.
 
 ## Getting Started
 
-1. **Clone this repository** and download the dataset from the [data repository](https://datadryad.org).
+1. **Clone this repository** and download the datasets from [Data Dryad](https://doi.org/10.5061/dryad.mpg4f4rg5) and [DABI](https://dabi.loni.usc.edu/projects/K1KK0H4SRS11).
 2. **Place all participant `.mat` files** (`T5.mat`, `T11.mat`, `T12.mat`, `T12_control.mat`, `T15.mat`, `T16.mat`, `T17.mat`, `C1.mat`, `C2.mat`) directly inside the `Data/` folder.
 3. **Open MATLAB** and set the working directory to the top-level project folder (the one containing `mainFigs.m`).
 4. **Run the analysis scripts in order:**
