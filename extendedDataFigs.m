@@ -1321,8 +1321,6 @@ fprintf('Generating Extended Data Fig. 8a - T12 control dataset correlation matr
 
 optFlow_datLoc = [data_dir 'T12_control.mat']; % load control dataset for T12
 T12_control = load(optFlow_datLoc); T12_control = T12_control.DataMat.neural;
-% T12_control = load('/Users/Darrel/Documents/NPTL/Data/t12.2025.02.25/RedisMat/T12_2025_02_25_nspAligned/T12_opticalFlow_neural_trialState2.mat');
-% T12_control = T12_control.DataMat;
 
 saveDir = [save_dir 'ExtDataFig8']; mkdir(saveDir);
 tmpDir = [saveDir filesep 'T12_control']; mkdir(tmpDir);

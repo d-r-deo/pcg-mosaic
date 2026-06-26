@@ -1,0 +1,41 @@
+hydra:
+  run:
+    dir: ${outputDir}
+  sweep:
+    dir: ${outputDir}
+    subdir: ${hydra.job.override_dirname}
+  job:
+    config:
+      override_dirname:
+        exclude_keys:
+          - outputDir
+          - datasetPath
+
+# Default paths are relative to the RNN folder (the directory containing this
+# file's parent's parent). The training notebook overrides these at submission
+# time; setting them here lets you also invoke the trainer directly with
+#   python neural_decoder_trainer.py outputDir=... datasetPath=...
+outputDir: outputs/training/default_run
+datasetPath: outputs/formatted_data/all_fold_0_4sec.pkl
+
+seed: 0
+batchSize: 64
+lrStart: 0.02
+lrEnd: 0.00
+l2_decay: 1.0e-5
+nBatch: 15000
+
+whiteNoiseSD: 1.2
+constantOffsetSD: 0.0
+gaussianSmoothWidth: 2.0
+
+crossEntropyLoss: True
+nUnits: 512
+nLayers: 5
+nInputFeatures: 96
+nClasses: 46
+dropout: 0.4
+strideLen: 4
+kernelLen: 32
+bidirectional: True
+saveWhenDone: True

@@ -1,0 +1,9 @@
+numpy
+scipy
+mat73
+torch
+hydra-core
+matplotlib
+pyyaml
+ipykernel
+jupyter
